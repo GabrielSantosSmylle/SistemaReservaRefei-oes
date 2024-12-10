@@ -1,0 +1,113 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ReservaRefeicao.ModelView"
+             x:Class="ReservaRefeicao.Views.AuthenticationView"
+             Title=""
+             BackgroundColor="White">
+
+    <Grid Padding="20" ColumnSpacing="10" RowSpacing="20" VerticalOptions="CenterAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="80" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Cabeçalho com logo e título -->
+        <StackLayout Grid.Row="0" Grid.ColumnSpan="3" Padding="0" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,15,0,0">
+            <Label Text="Bem-vindo(a),"
+                   FontSize="16"
+                   TextColor="Black"
+                   HorizontalOptions="Center" />
+            <Frame BackgroundColor="#003366" CornerRadius="15" Padding="10" HasShadow="True" BorderColor="White" Margin="0,5,0,0">
+                <Label Text="APROXIME O CRACHA PARA RESERVAR A REFEIÇÃO"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+            </Frame>
+            <Label Text="{Binding DiaAtual}"
+                   FontSize="18"
+                   TextColor="Black"
+                   HorizontalOptions="Center"
+                   Margin="0,5,0,0" />
+        </StackLayout>
+
+        <!-- Logo da empresa no canto superior direito -->
+        <Image Source="tramontinalogo.png"
+               HeightRequest="100"
+               WidthRequest="100"
+               Aspect="AspectFit"
+               HorizontalOptions="End"
+               VerticalOptions="Start"
+               Grid.Row="0" Grid.Column="2"
+               Margin="0,-20,-10,0" />
+
+        <!-- Exibição dos blocos de cardápio em uma linha com espaçamento -->
+        <CollectionView Grid.Row="1"
+                        Grid.Column="1"
+                        ItemsSource="{Binding CardapioDoDia}"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        Margin="0,20,0,20">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="20" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="#004C99"
+                           Padding="20"
+                           BackgroundColor="#F0F0F0"
+                           CornerRadius="20"
+                           HeightRequest="320"
+                           WidthRequest="260"
+                           HasShadow="True"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center">
+                        <StackLayout>
+                            <Label Text="{Binding Refeicao.Tipo}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#004C99"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Refeicao.Nome}"
+                                   FontSize="16"
+                                   TextColor="#555555"
+                                   HorizontalOptions="Center"
+                                   Margin="0,5,0,0"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding CardapioFormatado}"
+                                   FontSize="14"
+                                   TextColor="Black"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   Margin="0,10,0,0" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Entrada de Código do Funcionário -->
+        <Frame Grid.Row="2" Grid.ColumnSpan="3" CornerRadius="10" BorderColor="#004C99" Padding="10" Margin="20,0" HasShadow="True">
+            <Entry x:Name="codigoFuncionarioEntry"
+                   Placeholder="Código Funcionário"
+                   Keyboard="Numeric"
+                   Text="{Binding CodigoFuncionario}"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="16"
+                   TextColor="#003366"
+                   PlaceholderColor="#9CA3AF"
+                   Completed="OnCompleted"/>
+        </Frame>
+    </Grid>
+</ContentPage>
